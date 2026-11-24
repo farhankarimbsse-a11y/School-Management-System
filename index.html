@@ -1,192 +1,52 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>School Management System</title>
-  <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      font-family: Arial, sans-serif;
-      background:#f4f7fc;
-      color:#1e293b;
-    }
-    .layout { display:flex; min-height:100vh; }
-    .sidebar {
-      width:245px; background:#142b50; color:white;
-      padding:25px 16px;
-    }
-    .brand { font-size:21px; font-weight:bold; margin:5px 10px 35px; }
-    .sidebar a {
-      display:block; color:#cbd5e1; text-decoration:none;
-      padding:14px; margin:5px 0; border-radius:9px;
-    }
-    .sidebar a:hover, .sidebar a.active {
-      background:#2563eb; color:white;
-    }
-    main { flex:1; padding:30px; min-width:0; }
-    header {
-      display:flex; justify-content:space-between;
-      align-items:center; gap:15px; margin-bottom:30px;
-    }
-    header h1 { font-size:27px; }
-    .profile { color:#64748b; }
-    .cards {
-      display:grid; grid-template-columns:repeat(4,1fr);
-      gap:18px; margin-bottom:25px;
-    }
-    .card {
-      background:white; padding:23px; border-radius:13px;
-      box-shadow:0 3px 15px #0f172a0b;
-    }
-    .card p { color:#64748b; margin-bottom:13px; }
-    .card h2 { font-size:29px; color:#1d4ed8; }
-    .section {
-      background:white; padding:23px; border-radius:13px;
-      box-shadow:0 3px 15px #0f172a0b;
-    }
-    .section-head {
-      display:flex; justify-content:space-between;
-      align-items:center; gap:12px; margin-bottom:20px;
-    }
-    button {
-      background:#2563eb; color:white; border:0;
-      padding:11px 17px; border-radius:8px; cursor:pointer;
-    }
-    button:hover { background:#1d4ed8; }
-    table { width:100%; border-collapse:collapse; }
-    th, td {
-      text-align:left; padding:15px 10px;
-      border-bottom:1px solid #e5e7eb;
-    }
-    th { color:#64748b; font-size:13px; }
-    .status { color:#15803d; background:#dcfce7;
-      padding:6px 10px; border-radius:20px; font-size:12px; }
-    .modal {
-      display:none; position:fixed; inset:0;
-      background:#0008; align-items:center; justify-content:center;
-      padding:15px;
-    }
-    .modal-box {
-      background:white; padding:25px; border-radius:13px;
-      width:100%; max-width:400px;
-    }
-    .modal-box h2 { margin-bottom:18px; }
-    .modal-box input {
-      width:100%; padding:12px; margin:8px 0 15px;
-      border:1px solid #cbd5e1; border-radius:7px;
-    }
-    .close { background:#64748b; margin-left:8px; }
-    @media(max-width:950px) {
-      .cards { grid-template-columns:repeat(2,1fr); }
-    }
-    @media(max-width:650px) {
-      .layout { display:block; }
-      .sidebar { width:100%; padding:14px; }
-      .brand { margin:5px 5px 12px; }
-      .sidebar a { display:inline-block; padding:10px; font-size:13px; }
-      main { padding:18px 12px; }
-      header h1 { font-size:21px; }
-      .cards { grid-template-columns:1fr 1fr; gap:10px; }
-      .card { padding:15px; }
-      .card h2 { font-size:23px; }
-      .section { overflow-x:auto; padding:15px; }
-      table { min-width:520px; }
-    }
-  </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EduManage | School Management System</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,sans-serif;background:#f3f6fb;color:#17233b}.layout{display:flex;min-height:100vh}.sidebar{width:245px;flex-shrink:0;background:#142b50;color:#fff;padding:25px 16px}.brand{font-size:22px;font-weight:700;margin:5px 10px 32px}.sidebar a{display:block;color:#cbd5e1;text-decoration:none;padding:13px 14px;margin:5px 0;border-radius:9px}.sidebar a.active,.sidebar a:hover{background:#2563eb;color:#fff}main{flex:1;min-width:0;padding:30px}.top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:28px}.top h1{font-size:27px;margin-bottom:7px}.muted{color:#718096;font-size:14px}.admin{background:#fff;padding:11px 15px;border-radius:10px}.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:17px;margin-bottom:24px}.card,.panel{background:#fff;border-radius:14px;padding:21px;box-shadow:0 4px 18px #17233b0b}.card p{color:#718096;font-size:14px;margin-bottom:12px}.card h2{font-size:28px;color:#1d4ed8}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}.panel-head h2{font-size:20px}.actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}button{border:0;border-radius:8px;padding:11px 15px;background:#2563eb;color:white;cursor:pointer;font-weight:600}button:hover{filter:brightness(.94)}button:disabled{opacity:.5;cursor:not-allowed}.search{padding:11px 13px;border:1px solid #d7deea;border-radius:8px;min-width:220px;font-size:14px}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:650px}th,td{text-align:left;padding:14px 11px;border-bottom:1px solid #edf0f5;font-size:14px}th{color:#718096;font-size:12px;text-transform:uppercase;letter-spacing:.4px}tbody tr:hover{background:#f8faff}.pill{background:#dcfce7;color:#15803d;padding:6px 10px;border-radius:20px;font-size:12px}.edit,.delete{padding:7px 10px;font-size:12px;margin-right:4px}.edit{background:#e8efff;color:#1d4ed8}.delete{background:#fee2e2;color:#b91c1c}.empty{text-align:center;color:#718096;padding:30px}.modal{display:none;position:fixed;inset:0;background:#0b173b88;align-items:center;justify-content:center;padding:16px;z-index:5}.modal.show{display:flex}.modal-box{background:#fff;width:100%;max-width:430px;border-radius:15px;padding:25px;box-shadow:0 15px 50px #0003}.modal-box h2{margin-bottom:20px}.field{margin-bottom:15px}.field label{display:block;font-size:13px;font-weight:600;margin-bottom:7px}.field input,.field select{width:100%;padding:12px;border:1px solid #d7deea;border-radius:8px;font-size:14px}.modal-actions{display:flex;gap:9px;margin-top:20px}.cancel{background:#64748b}.notice{font-size:13px;color:#718096;margin-top:15px}
+@media(max-width:1000px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:650px){.layout{display:block}.sidebar{width:100%;padding:13px}.brand{margin:4px 5px 12px}.sidebar a{display:inline-block;padding:9px;font-size:12px;margin:2px}main{padding:18px 12px}.top h1{font-size:22px}.admin{font-size:12px}.cards{gap:10px}.card{padding:15px}.card h2{font-size:23px}.panel{padding:15px}.search{min-width:0;width:100%}.actions{width:100%}.actions button{flex:1}.panel-head{align-items:stretch}.panel-head h2{width:100%}}
+</style>
 </head>
 <body>
 <div class="layout">
-  <aside class="sidebar">
-    <div class="brand">🎓 EduManage</div>
-    <a class="active" href="#">🏠 Dashboard</a>
-    <a href="#students">👨‍🎓 Students</a>
-    <a href="#teachers">👨‍🏫 Teachers</a>
-    <a href="#attendance">📋 Attendance</a>
-    <a href="#fees">💰 Fees</a>
-    <a href="#classes">🏫 Classes</a>
-    <a href="#reports">📊 Reports</a>
-  </aside>
-
-  <main>
-    <header>
-      <div>
-        <h1>Admin Dashboard</h1>
-        <p class="profile">Welcome back, Administrator!</p>
-      </div>
-      <div class="profile">👤 Admin</div>
-    </header>
-
-    <div class="cards">
-      <div class="card"><p>Total Students</p><h2 id="studentCount">1,250</h2></div>
-      <div class="card"><p>Total Teachers</p><h2>85</h2></div>
-      <div class="card"><p>Present Today</p><h2>1,180</h2></div>
-      <div class="card"><p>Fees Collected</p><h2>Rs. 8.5L</h2></div>
-    </div>
-
-    <section class="section" id="students">
-      <div class="section-head">
-        <h2>Recent Students</h2>
-        <button onclick="openModal()">+ Add Student</button>
-      </div>
-      <table>
-        <thead>
-          <tr><th>Name</th><th>Class</th><th>Roll No.</th><th>Status</th></tr>
-        </thead>
-        <tbody id="studentList">
-          <tr><td>Ali Khan</td><td>Class 10</td><td>101</td><td><span class="status">Active</span></td></tr>
-          <tr><td>Ahmed Raza</td><td>Class 9</td><td>102</td><td><span class="status">Active</span></td></tr>
-          <tr><td>Sara Ahmed</td><td>Class 8</td><td>103</td><td><span class="status">Active</span></td></tr>
-        </tbody>
-      </table>
-    </section>
-  </main>
-</div>
-
-<div class="modal" id="studentModal">
-  <div class="modal-box">
-    <h2>Add New Student</h2>
-    <form id="studentForm">
-      <label>Student Name</label>
-      <input id="name" placeholder="Enter student name" required>
-      <label>Class</label>
-      <input id="className" placeholder="e.g. Class 7" required>
-      <label>Roll Number</label>
-      <input id="roll" placeholder="Enter roll number" required>
-      <button type="submit">Save Student</button>
-      <button type="button" class="close" onclick="closeModal()">Cancel</button>
-    </form>
-  </div>
-</div>
-
+<aside class="sidebar"><div class="brand">🎓 EduManage</div><a class="active" href="#dashboard">🏠 Dashboard</a><a href="#students">👨‍🎓 Students</a><a href="#teachers">👨‍🏫 Teachers</a><a href="#attendance">📋 Attendance</a><a href="#fees">💰 Fees</a><a href="#classes">🏫 Classes</a><a href="#reports">📊 Reports</a></aside>
+<main id="dashboard">
+<header class="top"><div><h1>Admin Dashboard</h1><p class="muted">Welcome back, Administrator!</p></div><div class="admin">👤 Admin</div></header>
+<section class="cards">
+<div class="card"><p>Total Students</p><h2 id="studentCount">0</h2></div>
+<div class="card"><p>Total Teachers</p><h2>85</h2></div>
+<div class="card"><p>Present Today</p><h2>1,180</h2></div>
+<div class="card"><p>Fees Collected</p><h2>Rs. 8.5L</h2></div>
+</section>
+<section class="panel" id="students">
+<div class="panel-head"><h2>Student Management</h2><div class="actions"><input class="search" id="search" type="search" placeholder="Search students..."><button id="addBtn">+ Add Student</button></div></div>
+<div class="table-wrap"><table><thead><tr><th>Student Name</th><th>Class</th><th>Roll No.</th><th>Status</th><th>Actions</th></tr></thead><tbody id="studentList"></tbody></table></div>
+<p class="notice">Student records are saved in this browser using local storage.</p>
+</section>
+</main></div>
+<div class="modal" id="studentModal"><div class="modal-box"><h2 id="modalTitle">Add New Student</h2><form id="studentForm">
+<div class="field"><label for="name">Student Name</label><input id="name" maxlength="70" required placeholder="Enter student name"></div>
+<div class="field"><label for="className">Class</label><select id="className" required><option value="">Select class</option><option>Class 1</option><option>Class 2</option><option>Class 3</option><option>Class 4</option><option>Class 5</option><option>Class 6</option><option>Class 7</option><option>Class 8</option><option>Class 9</option><option>Class 10</option><option>Class 11</option><option>Class 12</option></select></div>
+<div class="field"><label for="roll">Roll Number</label><input id="roll" maxlength="20" required placeholder="Enter roll number"></div>
+<div class="modal-actions"><button type="submit" id="saveBtn">Save Student</button><button type="button" class="cancel" id="cancelBtn">Cancel</button></div>
+</form></div></div>
 <script>
-  function openModal() {
-    document.getElementById('studentModal').style.display='flex';
-  }
-  function closeModal() {
-    document.getElementById('studentModal').style.display='none';
-  }
-  document.getElementById('studentForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const name = document.getElementById('name').value;
-    const cls = document.getElementById('className').value;
-    const roll = document.getElementById('roll').value;
-    const row = document.createElement('tr');
-    [name, cls, roll].forEach(value => {
-      const cell = document.createElement('td');
-      cell.textContent = value;
-      row.appendChild(cell);
-    });
-    const status = document.createElement('td');
-    status.innerHTML = '<span class="status">Active</span>';
-    row.appendChild(status);
-    document.getElementById('studentList').appendChild(row);
-    document.getElementById('studentCount').textContent =
-      Number(document.getElementById('studentCount').textContent.replace(',','')) + 1;
-    this.reset();
-    closeModal();
-  });
+const STORAGE_KEY='edumanage_students_v1';
+const starterStudents=[{id:1,name:'Ali Khan',cls:'Class 10',roll:'101'},{id:2,name:'Ahmed Raza',cls:'Class 9',roll:'102'},{id:3,name:'Sara Ahmed',cls:'Class 8',roll:'103'}];
+let students;
+try{const saved=localStorage.getItem(STORAGE_KEY);students=saved?JSON.parse(saved):starterStudents;if(!Array.isArray(students))students=starterStudents}catch(e){students=starterStudents}
+let editingId=null;
+const list=document.getElementById('studentList'),modal=document.getElementById('studentModal'),form=document.getElementById('studentForm');
+function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(students))}
+function render(){const q=document.getElementById('search').value.trim().toLowerCase();const filtered=students.filter(s=>[s.name,s.cls,s.roll].some(v=>String(v).toLowerCase().includes(q)));document.getElementById('studentCount').textContent=students.length.toLocaleString();list.innerHTML='';if(!filtered.length){list.innerHTML='<tr><td colspan="5" class="empty">No students found.</td></tr>';return}filtered.forEach(s=>{const tr=document.createElement('tr');[s.name,s.cls,s.roll].forEach(v=>{const td=document.createElement('td');td.textContent=v;tr.appendChild(td)});const status=document.createElement('td');status.innerHTML='<span class="pill">Active</span>';tr.appendChild(status);const actions=document.createElement('td');const edit=document.createElement('button');edit.className='edit';edit.textContent='Edit';edit.onclick=()=>openEdit(s.id);const del=document.createElement('button');del.className='delete';del.textContent='Delete';del.onclick=()=>removeStudent(s.id);actions.append(edit,del);tr.appendChild(actions);list.appendChild(tr)})}
+function openAdd(){editingId=null;form.reset();document.getElementById('modalTitle').textContent='Add New Student';document.getElementById('saveBtn').textContent='Save Student';modal.classList.add('show');document.getElementById('name').focus()}
+function openEdit(id){const s=students.find(x=>x.id===id);if(!s)return;editingId=id;document.getElementById('name').value=s.name;document.getElementById('className').value=s.cls;document.getElementById('roll').value=s.roll;document.getElementById('modalTitle').textContent='Edit Student';document.getElementById('saveBtn').textContent='Update Student';modal.classList.add('show')}
+function closeModal(){modal.classList.remove('show');form.reset();editingId=null}
+function removeStudent(id){const s=students.find(x=>x.id===id);if(!s||!confirm('Delete '+s.name+'?'))return;students=students.filter(x=>x.id!==id);save();render()}
+document.getElementById('addBtn').addEventListener('click',openAdd);document.getElementById('cancelBtn').addEventListener('click',closeModal);document.getElementById('search').addEventListener('input',render);
+modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});
+form.addEventListener('submit',e=>{e.preventDefault();const name=document.getElementById('name').value.trim(),cls=document.getElementById('className').value,roll=document.getElementById('roll').value.trim();if(!name||!cls||!roll)return;if(students.some(s=>s.roll.toLowerCase()===roll.toLowerCase()&&s.id!==editingId)){alert('This roll number is already in use.');return}if(editingId!==null){students=students.map(s=>s.id===editingId?{...s,name,cls,roll}:s)}else{students.push({id:Date.now(),name,cls,roll})}save();render();closeModal()});
+render();
 </script>
-</body>
-</html>
+</body></html>
